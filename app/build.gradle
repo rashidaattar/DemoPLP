@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+def libraries = rootProject.ext.libraries
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.demo.demoplp"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Android Libs
+    implementation libraries.appCompat
+    implementation libraries.appSupport
+//    implementation libraries.appCardView
+    implementation libraries.supportDesign
+    implementation libraries.recycleView
+//    implementation libraries.glideVersion
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    annotationProcessor libraries.glideCompiler
+    implementation libraries.timber
+//    //databinding
+    implementation libraries.databinding
+    implementation libraries.lifecycleExtension
+    annotationProcessor libraries.lifecycleCompiler
+//    // RxAndroid
+    implementation libraries.rxAndroid
+    // RxJavax
+    implementation libraries.rxjava2
+    // Networking
+
+    implementation libraries.retrofitCore
+    implementation libraries.retrofitAdapter
+    implementation libraries.retrofitJson
+
+    //glide
+    implementation libraries.glideVersion
+
+    // Dagger for Android
+    implementation libraries.daggerAndroid
+    implementation libraries.daggerSupport
+    // Dependency Injection Dagger2
+    implementation libraries.googleDagger
+    annotationProcessor libraries.daggerCompiler
+    annotationProcessor libraries.daggerProcessor
+    annotationProcessor libraries.glideCompiler
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    kapt 'com.google.dagger:dagger-android-processor:2.15'
+    kapt 'com.google.dagger:dagger-compiler:2.15'
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+}
