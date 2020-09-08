@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.demo.demoplp.DemoPLP
 import com.demo.demoplp.R
@@ -53,7 +54,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         listViewModel.filteredMap.observe(this, {
             Timber.d("filter map received sine is ${it.size}")
             binding?.progressBar?.visibility = View.GONE
-            binding?.pager?.adapter = PLPPagerAdapter(supportFragmentManager, it)
+            if (it.isNotEmpty())
+                binding?.pager?.adapter = PLPPagerAdapter(supportFragmentManager, it)
+            else
+                Toast.makeText(this,"No products found for your search",Toast.LENGTH_SHORT).show()
         })
     }
 
